@@ -164,22 +164,30 @@ function buildPreparation() {
 
 function main() {
   while true; do
+    # Очистка
     clear
+    # Вывод заголовка на выбранном языке
     printArrIndex "${menu}" 0
-    printArrRange "${menu}" 4 6
-    lecho "   4"": $(printArrIndex "${menu}" 1)"
-    getNumber 4 $(printArrIndex "${menu}" 3)
+    # Вывод основного меню
+    printArrRange "${menu}" 1 4
+    # Ожидаем "решения пользователя"
+    getNumber 4 $(printArrIndex "${menu}" 14)
+    # Выполняем команду
     case "$REPLY" in
       1)
+        # Подготовка и сборка нужного проекта
         buildPreparation
       ;;
       2)
+        # Запуск нужного проекта если он был собран ранее
         lecho "To-Do Run"
       ;;
       3)
+        # Очиска каталога сборки
         lecho "To-Do Clear"
       ;;
       4)
+        # Выход
         bye
     esac
   done
