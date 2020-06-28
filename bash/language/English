@@ -1,12 +1,16 @@
 Welcome to the Lite Series Project Menu
 Build test project
 Test project launch
+Cleaning
 Exit
 Choose a project to build
 Choose project build type
 Cmake (CMakeLists)
-Classic (Makefile)
+Make (Makefile)
 Back
 Project
 Build successfully
 Build error
+Choose a number
+Error creating build directory
+Press any key to continue

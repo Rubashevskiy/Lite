@@ -28,7 +28,7 @@ languageDir="${PWD}/bash/language/"
 
 # Функция выхода из скрипта
 function bye() {
-  lecho "Выход(Exit)"
+  lecho "$(printArrIndex "${menu}" "4")"
   exit 0
 }
 
@@ -98,80 +98,108 @@ function setLanguage() {
   done <"$fileMenu"
 }
 
+# Функция для проведения сборки проекта
 function build() {
+  # Очиска экрана
   clear
-  local bDir="${BuildDir}""$(printArrIndex "${Project}" "$1")"
+  # Формируем папку для сборки проекта
+  local bDir="${buildDir}""$(printArrIndex "${project}" "$1")"
+  # Создание каталога
   if ( ! createDir ${bDir}); then
-    lecho "$(printArrIndex "${Menu}" 10)"
+    lecho "$(printArrIndex "${menu}" 14)"
     return 1
   fi
-  
-  local result
+  # Формируем результирующую строку
+  local pResult="$(printArrIndex "${menu}" 10) ""$(printArrIndex "${project}" "$1")"": "
+  # Собираем Cmake
   if (("$2"=="1")); then
-    local cDir="${CmakeDir}""$(printArrIndex "${Project}" "$1")"
+    # Формируем путь до cmake файла(CMakeLists.txt)
+    local cDir="${cmakeFileDir}""$(printArrIndex "${project}" "$1")"
     #Переход в каталог сборки
     cd "${bDir}"
     #Генерируем Makefile и собираем проект
     if (cmake ${cDir}) && (make); then
-      result=0
+      # Проект собран успешно
+      lecho "${pResult}""$(printArrIndex "${menu}" 11)"
+      anyKey "$(printArrIndex "${menu}" 15)"
+      return 0
     else
-      result=1
+      # Ошибка
+      lecho "${pResult}""$(printArrIndex "${menu}" 12)"
+      anyKey "$(printArrIndex "${menu}" 15)"
+      return 1
     fi
   else
-    local mDir="${ClassicDir}""$(printArrIndex "${Project}" "$1")""/Makefile"
-    #Переход в каталог сборки
+    # Формируем путь до make файла(Makefile)
+    local mDir="${makeFileDir}""$(printArrIndex "${project}" "$1")""/Makefile"
+    # Переход в каталог сборки
     cd "${bDir}"
+    # собираем проект make
     if (make -f "${mDir}"); then
-      result=0
+      # Проект собран успешно
+      lecho "${pResult}""$(printArrIndex "${menu}" 11)"
+      anyKey "$(printArrIndex "${menu}" 15)"
+      return 0
     else
-      result=1
+      # Ошибка
+      lecho "${pResult}""$(printArrIndex "${menu}" 12)"
+      anyKey "$(printArrIndex "${menu}" 15)"
+      return 1
     fi
   fi
-  local pResult="$(printArrIndex "${Menu}" 9) ""$(printArrIndex "${Project}" "$1")"": "
-  if (("${result}"=="0")); then
-    lecho "${pResult}""$(printArrIndex "${Menu}" 10)"
-  else
-    lecho "${pResult}""$(printArrIndex "${Menu}" 11)"
-  fi
-  anyKey
-  return 0;
 }
 
+# Функция для проведения подготовки сборки проекта
 function buildPreparation() {
   while true; do
+    # Очистка
     clear
-    local countMenu=$(getArrCount "${Project}")
+    # Вывод заголовка сборки
+    printArrIndex "${menu}" 5
+    # Вывод списка проектов
+    printArr "${project}"
+    # Получим число проектов
+    local countMenu=$(getArrSize "${project}")
+    # Добавим в меню "Назад"
     let "countMenu += 1"
-    printArrIndex "${Menu}" 4
-    printArr "${Project}"
-    lecho "   ${countMenu}"": $(printArrIndex "${Menu}" 8)"
-    getNumber 1 "${countMenu}"
-    local buildPrj="$REPLY"
-    let "buildPrj -= 1"
+    lecho "   ${countMenu}"": $(printArrIndex "${menu}" 9)"
+    # Ожидаем "решения пользователя"
+    getNumber "${countMenu}" "$(printArrIndex "${menu}" 13)"
+    # Если выбранно "Назад" выходим в главное меню
     if (("$REPLY"=="${countMenu}")); then
       return 0
     fi
+    # Получаем индекс проекта в масиве
+    local buildNum="$REPLY"
+    let "buildNum -= 1"
+    # Очистка
     clear
-    lecho "$(printArrIndex "${Menu}" 5) ""$(printArrIndex "${Project}" "${buildPrj}")"
-    printArrRange "${Menu}" 6 8
-    getNumber 1 3
+    # Заголовок меню выбора "тип сборки"
+    lecho "$(printArrIndex "${menu}" 6): ""$(printArrIndex "${project}" "${buildNum}")"
+    # Вывод вариантов "сборки"
+    printArrRange "${menu}" 7 9
+    # Ожидаем "решения пользователя"
+    getNumber "3" "$(printArrIndex "${menu}" 13)"
+    # Сохраним выбор
     local buildType="$REPLY"
+    # Если "тип сборки" выбран - отправляем на сборку
     if (("${buildType}"<"3")); then
-      build ${buildPrj} ${buildType};
+      build "${buildPrj}" "${buildType}"
     fi
   done
 }
 
+# Главная функция 
 function main() {
   while true; do
     # Очистка
     clear
-    # Вывод заголовка на выбранном языке
+    # Вывод заголовка
     printArrIndex "${menu}" 0
     # Вывод основного меню
     printArrRange "${menu}" 1 4
     # Ожидаем "решения пользователя"
-    getNumber 4 $(printArrIndex "${menu}" 14)
+    getNumber 4 "$(printArrIndex "${menu}" 13)"
     # Выполняем команду
     case "$REPLY" in
       1)
@@ -193,6 +221,9 @@ function main() {
   done
 }
 
+# Загрузка проектов
 loadProject
+# Загрузка и выбор языка
 setLanguage
+# Главное меню
 main
