@@ -1,3 +1,16 @@
+/**
+ * @author Yuriy Rubashevskiy (r9182230628@gmail.com)
+ * @brief Простой класс для создания исключения с формированием backtrace
+ * @version 0.2
+ * @date 2020-06-05
+ * @donate Автору на 'печеньки': http://yasobe.ru/na/avtoru_na_pe4enki
+ * 
+ * @copyright Copyright (c) 2020 Free   Software   Foundation,  Inc.
+ *     License  GPLv3+:  GNU  GPL  version  3  or  later <http://gnu.org/licenses/gpl.html>.
+ *     This is free software: you are free to change and redistribute it.  
+ *     There is NO WARRANTY, to the  extent  permitted by law.
+ */
+
 #ifndef EXCEPTION_BASE
 #define EXCEPTION_BASE
 

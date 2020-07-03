@@ -1,11 +1,18 @@
 #!/bin/bash
 
 #
-# Сборка и запуск тестовых проектов серии Lite
-# Версия 0.0.2b
-# Автор: Рубашевский Ю. А.
-# Email: rubashevskiy_ya@magnit.ru
+# @author Yuriy Rubashevskiy (r9182230628@gmail.com)
+# @brief Сборка и запуск тестовых примеров проекта серии Lite
+# @version 0.2.1
+# @date 2020-07-01
+# @donate Автору на 'печеньки': http://yasobe.ru/na/avtoru_na_pe4enki
+# 
+# @copyright Copyright (c) 2020 Free   Software   Foundation,  Inc.
+#     License  GPLv3+:  GNU  GPL  version  3  or  later <http://gnu.org/licenses/gpl.html>.
+#     This is free software: you are free to change and redistribute it.  
+#     There is NO WARRANTY, to the  extent  permitted by law.
 #
+
 
 # include 
 # Самописные вспомогательные функции на Bash

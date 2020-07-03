@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# @author Yuriy Rubashevskiy (r9182230628@gmail.com)
+# @brief "Набор функций" для  BASH отвечабщий за работу с системой Linux
+# @version 0.0.1b
+# @date 2020-07-01
+# @donate Автору на 'печеньки': http://yasobe.ru/na/avtoru_na_pe4enki
+# 
+# @copyright Copyright (c) 2020 Free   Software   Foundation,  Inc.
+#     License  GPLv3+:  GNU  GPL  version  3  or  later <http://gnu.org/licenses/gpl.html>.
+#     This is free software: you are free to change and redistribute it.  
+#     There is NO WARRANTY, to the  extent  permitted by law.
+#
+
 # Проверка запущен ли скрипт под root
 function isRoot() {
   if [[ $EUID -ne 0 ]]; then
@@ -9,9 +21,10 @@ function isRoot() {
   fi
 }
 
+# Создание каталога(ов) по указанному пути
 function createDir () {
   if ([ ! -n "$1" ]); then 
-    echo "Error: createDir -> param is empty"
+    echo "Error: Сreate dir -> param is empty"
     exit 1
   fi
   if [ -d $1 ]; then
