@@ -2,15 +2,14 @@ Willkommen im Projektmenü der Lite-Serie
 Testprojekt erstellen
 Projektstart testen
 Reinigung
-Ausfahrt
+Ausgabe
 Wählen Sie ein Projekt zum Erstellen
-Wählen Sie den Projekterstellungstyp
-Cmake (CMakeLists)
-Make (Makefile)
+Keine Bauprojekte
 zurück
-Projekt
-Erfolgreich zusammengebaut
-Build-Fehler
-Wähle eine Nummer
 Fehler beim Erstellen des Erstellungsverzeichnisses
-Drücken Sie eine beliebige Taste, um fortzufahren
+Fehlerdatei <CMakeLists.txt> nicht gefunden
+Projekt erfolgreich zusammengestellt
+Fehlerprojekt nicht zusammengestellt
+Wähle eine Nummer
+Drücken Sie eine beliebige Taste, um fortzufahren.
+Wir sehen uns wieder

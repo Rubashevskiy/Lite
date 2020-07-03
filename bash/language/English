@@ -4,13 +4,12 @@ Test project launch
 Cleaning
 Exit
 Choose a project to build
-Choose project build type
-Cmake (CMakeLists)
-Make (Makefile)
+No build projects
 Back
-Project
-Build successfully
-Build error
-Choose a number
 Error creating build directory
-Press any key to continue
+Error file <CMakeLists.txt> not found
+Project build successfully
+Error project not build
+Choose a number
+Press any button to continue.
+See you again
